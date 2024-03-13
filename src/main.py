@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 class App:
     def __init__(self):
         self._hub_connection = None
