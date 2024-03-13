@@ -9,6 +9,7 @@ signalrcore = "*"
 python-dotenv = "*"
 
 [dev-packages]
+pylint = "*"
 
 [requires]
 python_version = "3.8"
@@ -16,4 +17,4 @@ python_version = "3.8"
 [scripts]
 start = "python src/main.py"
 test = "python -m unittest test/test.py"
-lint = "# To implement"
+lint = "pylint src test"
