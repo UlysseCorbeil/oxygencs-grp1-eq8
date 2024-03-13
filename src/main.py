@@ -3,6 +3,7 @@ import logging
 import requests
 import json
 import time
+import math
 import os
 import psycopg2
 from dotenv import load_dotenv
