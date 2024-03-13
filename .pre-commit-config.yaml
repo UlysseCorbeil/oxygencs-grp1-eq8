@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/ambv/black
-    rev: stable
+    rev: 24.2.0
     hooks:
       - id: black
         language_version: python3
@@ -8,17 +8,18 @@ repos:
     hooks:
       - id: pylint
         name: pylint
-        entry: pylint
+        entry: pipenv run lint
         language: system
         types: [python]
         args:
           [
             "-rn", # Only display messages
             "-sn", # Don't display the score
+            "--fail-on=I"
           ]
       - id: run-tests
         name: Run Unit Tests
-        entry: python -m pytest test
+        entry: pipenv run test
         language: system
         pass_filenames: false
         types: [python]
