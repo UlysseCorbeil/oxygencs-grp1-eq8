@@ -6,10 +6,25 @@ on:
       - "main"
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name : Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          cd $GITHUB_WORKSPACE
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Tests
+        run: python -m unittest test/test.py
+
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
         
       - name: Login to Docker Hub
