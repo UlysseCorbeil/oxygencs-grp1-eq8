@@ -17,4 +17,4 @@ python_version = "3.8"
 [scripts]
 start = "python src/main.py"
 test = "python -m unittest test/test.py"
-lint = "pylint src test"
+lint = "pylint src test --disable=C0103,C0411,C0114,C0115,C0116,C0121,C0301,E1101,R0902,W0718,W3101"

@@ -6,6 +6,7 @@ import time
 import os
 import psycopg2
 from dotenv import load_dotenv
+
 load_dotenv()
 
 
@@ -15,7 +16,7 @@ class App:
         self.TICKS = 10
 
         # To be configured by your team
-        self.HOST = os.getenv("HOST") # Setup your host here
+        self.HOST = os.getenv("HOST")  # Setup your host here
         self.TOKEN = os.getenv("TOKEN")  # Setup your token here
         self.T_MAX = os.getenv("T_MAX")  # Setup your max temperature here
         self.T_MIN = os.getenv("T_MIN")  # Setup your min temperature here
@@ -99,23 +100,23 @@ class App:
         """Save sensor data into database."""
         try:
             self.db_connection = psycopg2.connect(
-                database = self.DB_NAME,
-                host = self.DATABASE_URL,
-                user = self.USER,
-                password = self.PASSWORD,
-                port = self.DB_PORT
+                database=self.DB_NAME,
+                host=self.DATABASE_URL,
+                user=self.USER,
+                password=self.PASSWORD,
+                port=self.DB_PORT,
             )
             cursor = self.db_connection.cursor()
 
             cursor.execute(
                 "INSERT INTO rt_temperatures (timestamp, c_temp, ac_activated, heater_activated) VALUES (%s, %s, %s, %s)",
-                (timestamp, temperature, self.ac_activated, self.heater_activated)
+                (timestamp, temperature, self.ac_activated, self.heater_activated),
             )
 
             self.db_connection.commit()
         except requests.exceptions.RequestException as e:
             print(e)
-            if (self.connection):
+            if self.connection:
                 cursor.close()
                 self.connection.close()
 
