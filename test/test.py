@@ -58,8 +58,8 @@ class TestApp(unittest.TestCase):
     def test_send_action_to_hvac(self, mock_method):
         action = "TurnOnAc"
 
-        mock_res = mock_method.return_value
-        mock_res.text = json.dumps({"status": "success", "action": action})
+        # mock_res = mock_method.return_value
+        # mock_res.text = json.dumps({"status": "success", "action": action})
 
         self.app.send_action_to_hvac(action)
         mock_method.assert_called_once_with(
