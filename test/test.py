@@ -1,4 +1,3 @@
-import json
 import unittest
 from unittest.mock import patch, MagicMock
 from src.main import App
@@ -57,7 +56,6 @@ class TestApp(unittest.TestCase):
     @patch("requests.get")
     def test_send_action_to_hvac(self, mock_method):
         action = "TurnOnAc"
-
         self.app.send_action_to_hvac(action)
         mock_method.assert_called_once_with(
             f"{self.app.HOST}/api/hvac/{self.app.TOKEN}/TurnOnAc/{self.app.TICKS}"
