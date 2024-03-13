@@ -26,6 +26,8 @@ class App:
         self.DB_PORT = os.getenv("DB_PORT")
         self.DB_NAME = os.getenv("DB_NAME")
 
+        self.db_connection = None
+
         self.ac_activated = False
         self.heater_activated = False
 
@@ -96,26 +98,26 @@ class App:
     def save_event_to_database(self, timestamp, temperature):
         """Save sensor data into database."""
         try:
-            connection = psycopg2.connect(
+            self.db_connection = psycopg2.connect(
                 database = self.DB_NAME,
                 host = self.DATABASE_URL,
                 user = self.USER,
                 password = self.PASSWORD,
                 port = self.DB_PORT
             )
-            cursor = connection.cursor()
+            cursor = self.db_connection.cursor()
 
             cursor.execute(
                 "INSERT INTO rt_temperatures (timestamp, c_temp, ac_activated, heater_activated) VALUES (%s, %s, %s, %s)",
                 (timestamp, temperature, self.ac_activated, self.heater_activated)
             )
 
-            connection.commit()
+            self.db_connection.commit()
         except requests.exceptions.RequestException as e:
             print(e)
-            if (connection):
+            if (self.connection):
                 cursor.close()
-                connection.close()
+                self.connection.close()
 
 
 if __name__ == "__main__":
