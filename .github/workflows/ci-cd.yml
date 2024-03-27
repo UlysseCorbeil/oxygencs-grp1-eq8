@@ -1,4 +1,4 @@
-name: ci
+name: ci-cd
 
 on:
   push:
@@ -67,3 +67,17 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/oxygencsgrp1eq8:${{ steps.time.outputs.time }}
             ${{ secrets.DOCKERHUB_USERNAME }}/oxygencsgrp1eq8:latest
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Set up Kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+          
+      - name: Deploy
+        run: |
+          kubectl apply -f kubernetes/deployment.yaml
