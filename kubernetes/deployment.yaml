@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oxygencs-deployment
+  labels:
+    app: oxygencs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oxygencs
+  template:
+    metadata:
+      labels:
+        app: oxygencs
+    spec:
+      containers:
+      - name: oxygencs
+        image: user01eq8/oxygencsgrp1eq8:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 400m
+            memory: 400Mi
