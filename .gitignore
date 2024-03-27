@@ -137,3 +137,5 @@ deploy_rsa.pub
 
 # Kubernetes config
 kubeconfig.yaml
+configs.yaml
+secrets.yaml
