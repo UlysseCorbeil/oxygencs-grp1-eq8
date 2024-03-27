@@ -64,4 +64,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/oxygencsgrp1eq8:latest-${{ steps.time.outputs.time }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/oxygencsgrp1eq8:${{ steps.time.outputs.time }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/oxygencsgrp1eq8:latest
