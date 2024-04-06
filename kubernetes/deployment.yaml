@@ -26,49 +26,8 @@ spec:
           limits:
             cpu: 50m
             memory: 500Mi
-        env:
-          - name: HOST
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: HOST
-          - name: T_MAX
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: T_MAX
-          - name: T_MIN
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: T_MIN
-          - name: DATABASE_URL
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: DATABASE_URL
-          - name: DB_NAME
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: DB_NAME
-          - name: DB_USER
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: DB_USER
-          - name: DB_PORT
-            valueFrom:
-              configMapKeyRef:
-                name: oxygencs-configs
-                key: DB_PORT
-          - name: TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: oxygencs-secrets
-                key: TOKEN
-          - name: DB_PWD
-            valueFrom:
-              secretKeyRef:
-                name: oxygencs-secrets
-                key: DB_PWD
+        envFrom:
+          - configMapRef:
+              name: oxygencs-configs
+          - secretRef:
+              name: oxygencs-secrets
