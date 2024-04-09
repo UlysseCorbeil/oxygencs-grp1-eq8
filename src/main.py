@@ -39,6 +39,13 @@ class App:
         """Start Oxygen CS."""
         self.setup_sensor_hub()
         self._hub_connection.start()
+        self.db_connection = psycopg2.connect(
+            database=self.DB_NAME,
+            host=self.DATABASE_URL,
+            user=self.USER,
+            password=self.PASSWORD,
+            port=self.DB_PORT,
+        )
         print("Press CTRL+C to exit.")
         while True:
             time.sleep(2)
@@ -98,13 +105,6 @@ class App:
     def save_event_to_database(self, timestamp, temperature):
         """Save sensor data into database."""
         try:
-            self.db_connection = psycopg2.connect(
-                database=self.DB_NAME,
-                host=self.DATABASE_URL,
-                user=self.USER,
-                password=self.PASSWORD,
-                port=self.DB_PORT,
-            )
             cursor = self.db_connection.cursor()
 
             cursor.execute(
